@@ -1,0 +1,16 @@
+# Pycharm
+.idea
+
+# Vim
+
+*~
+*.swp
+*.swo
+
+# Vagrant
+.vagrant
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
