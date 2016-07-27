@@ -1,2 +1,2 @@
-aiohttp==0.22.2
+aiohttp==0.22.3
 ipython==5.0.0

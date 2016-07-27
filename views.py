@@ -3,6 +3,15 @@ import pickle
 from aiohttp import web
 
 
+class IndexView(web.View):
+    async def get(self):
+        body = """
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" >
+        <script>console.log('seimur start')</script>
+        """
+        return web.Response(body=body.encode('utf-8'), headers={'Content-type': 'text/html'})
+
+
 class PairListCreateAPIView(web.View):
     async def get(self):
         """
