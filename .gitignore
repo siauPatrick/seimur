@@ -2,7 +2,6 @@
 .idea
 
 # Vim
-
 *~
 *.swp
 *.swo
@@ -14,3 +13,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Generated files
+node_modules/
+dist/
+npm-debug.log

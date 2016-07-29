@@ -6,8 +6,15 @@ from aiohttp import web
 class IndexView(web.View):
     async def get(self):
         body = """
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" >
-        <script>console.log('seimur start')</script>
+        <head>
+          <meta charset="UTF-8">
+          <title>Seimur</title>
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" >
+          <script type="text/javascript" src="/static/main.js" defer></script>
+        </head>
+        <body>
+          <section id="seimur-app"></section>
+        </body>
         """
         return web.Response(body=body.encode('utf-8'), headers={'Content-type': 'text/html'})
 
