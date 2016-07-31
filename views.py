@@ -9,8 +9,7 @@ class IndexView(web.View):
         <head>
           <meta charset="UTF-8">
           <title>Seimur</title>
-          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" >
-          <script type="text/javascript" src="/static/main.js" defer></script>
+          <script type="text/javascript" src="/static/bundle.js" defer></script>
         </head>
         <body>
           <section id="seimur-app"></section>

@@ -9,8 +9,8 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: ['./app.js'],
   output: {
-    path:  './dist/',
-    filename: '[name].js'
+    path: './dist/',
+    filename: 'bundle.js'
   },
   module: {
     preLoaders: [
@@ -25,10 +25,11 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        loader: 'style!css'
       }
     ]
-  },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
   }
 };
