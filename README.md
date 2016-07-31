@@ -4,22 +4,48 @@ Active learning framework for finding same social account.
 
 ## dev start
 
+Install python3.5
 ```
 brew install python3
 ```
 
+Create virtualenv
 ```
 python3 -m venv ~/.envs/siemur
 ```
 
+Activate virtualenv
 ```
-source ~/
+source ~/.envs/siemur/bin/activate
 ```
 
+Install python requirements
+```
+pip install -r requirements.txt
+```
+
+Install nodejs
+```
+brew install node
+```
+
+Install nodejs requirements
+```
+cd gui
+npm i
+```
+
+Build bundle.js and start watcher
+```
+node --harmony_rest_parameters devserver.js
+```
+
+Run aiohttp server
 ```bash
 python app.py
 ```
 
-```
-node --harmony_rest_parameters devserver.js
+Open localhost:8080 in browser 
+```bash
+python app.py
 ```
