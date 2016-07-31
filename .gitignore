@@ -16,7 +16,7 @@ __pycache__/
 
 # Generated files
 node_modules/
-dist/
+build/
 npm-debug.log
 
 ## OSX

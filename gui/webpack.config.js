@@ -3,13 +3,12 @@ var path = require('path');
 
 const ROOT_DIR = path.resolve(__filename, '../');
 
-
 module.exports = {
   context: ROOT_DIR,
   devtool: 'cheap-module-source-map',
   entry: ['./app.js'],
   output: {
-    path: './dist/',
+    path: './build',
     filename: 'bundle.js'
   },
   module: {

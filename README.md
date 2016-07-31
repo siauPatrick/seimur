@@ -31,13 +31,12 @@ brew install node
 
 Install nodejs requirements
 ```
-cd gui
-npm i
+cd gui && npm i
 ```
 
 Build bundle.js and start watcher
 ```
-node --harmony_rest_parameters devserver.js
+node devserver.js
 ```
 
 Run aiohttp server
@@ -46,6 +45,3 @@ python app.py
 ```
 
 Open localhost:8080 in browser 
-```bash
-python app.py
-```
