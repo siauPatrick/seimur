@@ -1,5 +1,3 @@
-import fetch from 'isomorphic-fetch';
-
 import {
   REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
   REQUEST_PAIR, RECEIVE_PAIR
