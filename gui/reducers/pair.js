@@ -1,9 +1,14 @@
-import { REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST } from '../constants';
+import {
+  REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
+  REQUEST_PAIR, RECEIVE_PAIR
+} from '../constants';
 
 
 const initialState = {
   items: [],
-  isFetching: false
+  listIsFetching: false,
+  item: {},
+  itemIsFetching: false
 };
 
 
@@ -12,13 +17,24 @@ export default function update(state = initialState, action) {
     case REQUEST_PAIR_LIST:
       return {
         ...state,
-        isFetching: true
+        listIsFetching: true
       };
     case RECEIVE_PAIR_LIST:
       return {
         ...state,
-        isFetching: false,
+        listIsFetching: false,
         items: action.items,
+      };
+    case REQUEST_PAIR:
+      return {
+        ...state,
+        itemIsFetching: true
+      };
+    case RECEIVE_PAIR:
+      return {
+        ...state,
+        itemIsFetching: false,
+        item: action.item,
       };
     default:
       return state

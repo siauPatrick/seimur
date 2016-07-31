@@ -30,8 +30,11 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={components.PairList} />
-      <Route path="/pairs/:pk" component={components.PairDetail} />
+      <Route path="/" component={components.App}>
+        <IndexRedirect to="/pairs"/>
+        <Route path="/pairs" component={components.PairList}/>
+        <Route path="/pairs/:id" component={components.PairDetail}/>
+      </Route>
     </Router>
   </Provider>,
   document.getElementById('seimur-app')

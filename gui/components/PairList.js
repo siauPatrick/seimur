@@ -36,7 +36,7 @@ export class PairList extends React.Component {
 
 export default connect(
   state => ({
-    pairList: state.pairList.items,
-    isFetching: state.pairList.isFetching
+    pairList: state.pair.items,
+    isFetching: state.pair.listIsFetching
   })
 )(PairList)

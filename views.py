@@ -51,6 +51,7 @@ class PairRetrieveUpdateAPIView(web.View):
         pair_id_param = self.request.match_info.get('pair_id')
         pair_id = tuple(sorted(int(p) for p in pair_id_param.split('_')))
         pair = pairs.get(pair_id)
+        pair['id'] = '_'.join(map(str, sorted(pair_id)))
 
         if pair is None:
             return web.json_response({'detail': 'Not found'}, status=404)

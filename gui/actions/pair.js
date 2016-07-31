@@ -1,6 +1,9 @@
 import fetch from 'isomorphic-fetch';
 
-import { REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST } from '../constants';
+import {
+  REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
+  REQUEST_PAIR, RECEIVE_PAIR
+} from '../constants';
 
 
 function requestPairList() {
@@ -24,5 +27,30 @@ export function fetchPairList() {
     return fetch('/api/pairs', {credentials: 'include'})
       .then(response => response.json())
       .then(json => dispatch(receivePairList(json)))
+  }
+}
+
+
+function requestPair() {
+  return {
+    type: REQUEST_PAIR
+  }
+}
+
+
+function receivePair(json) {
+  return {
+    type: RECEIVE_PAIR,
+    item: json
+  }
+}
+
+
+export function fetchPair(pairId) {
+  return (dispatch) => {
+    dispatch(requestPair());
+    return fetch(`/api/pairs/${pairId}`, {credentials: 'include'})
+      .then(response => response.json())
+      .then(json => dispatch(receivePair(json)))
   }
 }

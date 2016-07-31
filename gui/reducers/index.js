@@ -1,1 +1,1 @@
-export pairList from './pair';
+export pair from './pair';

@@ -11,6 +11,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 app = web.Application()
 app.router.add_route('GET', '/', IndexView)
+app.router.add_route('GET', '/pairs', IndexView)
 app.router.add_route('GET', '/pairs/{pair_id:\d+_\d+}', IndexView)
 app.router.add_route('*', '/api/pairs', PairListCreateAPIView)
 app.router.add_route('*', '/api/pairs/{pair_id:\d+_\d+}', PairRetrieveUpdateAPIView)
