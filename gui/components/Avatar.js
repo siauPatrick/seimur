@@ -2,51 +2,42 @@ import React from 'react';
 
 
 export default class Avatar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getImage = this.getImage.bind(this);
-    this.replaceImg = this.replaceImg.bind(this);
-    this.setExistingImg = this.setExistingImg.bind(this);
-  }
-
-  componentDidMount() {
-    const {images} = this.props;
-    this.setExistingImg(images);
-  }
-
   state = {
-    imgUri: '',
-    defaultProfilePhotoUri: 'https://search.amazinghiring.com/static/img/default-profile-photo.svg'
+    imageUri: ''
   }
 
-  getImage(imgUri) {
+  defaultImageUri = '/static/default_avatar.svg';
+
+  componentDidMount = () => {
+    const {images} = this.props;
+    this.setExistingImage(images);
+  }
+
+  getImage = (imageUri) => {
     return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(imgUri);
-      img.onerror = () => reject();
-      img.src = imgUri
+      const image = new Image();
+      image.onload = () => resolve(imageUri);
+      image.onerror = reject;
+      image.src = imageUri;
     })
   }
 
-  replaceImg(imgUri) {
-    this.setState({imgUri})
+  setImageUri = (imageUri) => {
+    this.setState({imageUri});
   }
 
-  setExistingImg(images) {
-    const getImage = this.getImage;
-    const replaceImg = this.replaceImg;
-
-    const checkImg = () => {
-      const imgUri = images.length ? images.shift() : this.state.defaultProfilePhotoUri;
-      getImage(imgUri).then(replaceImg, checkImg)
+  setExistingImage = (images) => {
+    const checkImage = () => {
+      const imgUri = images.length ? images.shift() : this.defaultImageUri;
+      this.getImage(imgUri).then(this.setImageUri, checkImage);
     };
-    checkImg();
+    checkImage();
   }
 
   render() {
     return (
       <div>
-        <img src={this.state.imgUri}/>
+        <img src={this.state.imageUri}/>
       </div>
     )
   }

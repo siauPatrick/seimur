@@ -1,4 +1,5 @@
-var path = require('path');
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 
 const ROOT_DIR = path.resolve(__filename, '../');
@@ -30,5 +31,10 @@ module.exports = {
         loader: 'style!css'
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      {from: './images/default_avatar.svg'}
+    ])
+  ]
 };
