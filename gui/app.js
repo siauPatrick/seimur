@@ -1,3 +1,5 @@
+require.context('./components/', true, /\.scss$/);
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
@@ -6,9 +8,11 @@ import {Provider} from 'react-redux';
 import {Router, Route, IndexRedirect, browserHistory} from 'react-router';
 import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 
-import './app.css';
-import * as components from './components';
-import * as reducers from './reducers';
+import App from 'gui/components/App/App';
+import PairList from 'gui/components/PairList/PairList';
+import PairDetail from 'gui/components/PairDetail/PairDetail';
+
+import * as reducers from 'gui/reducers';
 
 
 const reducer = combineReducers({
@@ -30,10 +34,10 @@ const history = syncHistoryWithStore(browserHistory, store);
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <Route path="/" component={components.App}>
+      <Route path="/" component={App}>
         <IndexRedirect to="/pairs"/>
-        <Route path="/pairs" component={components.PairList}/>
-        <Route path="/pairs/:id" component={components.PairDetail}/>
+        <Route path="/pairs" component={PairList}/>
+        <Route path="/pairs/:id" component={PairDetail}/>
       </Route>
     </Router>
   </Provider>,

@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
-import {fetchPairList} from '../actions/pair';
+import {fetchPairList} from 'gui/actions/pair';
 
 
 function Pair({pair}) {

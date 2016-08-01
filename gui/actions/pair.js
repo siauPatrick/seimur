@@ -1,7 +1,7 @@
 import {
   REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
   REQUEST_PAIR, RECEIVE_PAIR
-} from '../constants';
+} from 'gui/constants';
 
 
 function requestPairList() {
