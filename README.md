@@ -36,7 +36,7 @@ cd gui && npm i
 
 Build bundle.js and start watcher
 ```
-node devserver.js
+node run build-dev
 ```
 
 Run aiohttp server

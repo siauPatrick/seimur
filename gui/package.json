@@ -5,11 +5,7 @@
   "author": "ah",
   "private": true,
   "scripts": {
-    "webpack-server": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors --config ./config/webpack_settings/dev.js --host 0.0.0.0 --watch-poll 3000",
-    "web-server": "node ./node_modules/http-server/bin/http-server -p 3000 .",
-    "start": "npm run webpack-server & npm run web-server",
-    "build-prod": "node ./node_modules/webpack/bin/webpack.js --progress --colors --config ./config/webpack_settings/prod.js",
-    "build": "node ./node_modules/webpack/bin/webpack.js --progress --colors --config ./webpack.config.js"
+    "build-dev": "webpack --progress --colors --watch --config ./webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "6.11.4",
