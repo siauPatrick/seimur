@@ -9,6 +9,7 @@ class IndexView(web.View):
         <head>
           <meta charset="UTF-8">
           <title>Seimur</title>
+          <link rel="stylesheet" href="/static/style.css">
           <script type="text/javascript" src="/static/bundle.js" defer></script>
         </head>
         <body>
