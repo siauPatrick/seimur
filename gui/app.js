@@ -1,5 +1,3 @@
-require.context('./components/', true, /\.scss$/);
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import thunk from 'redux-thunk';
@@ -11,8 +9,8 @@ import {syncHistoryWithStore, routerReducer} from 'react-router-redux';
 import App from 'gui/components/App/App';
 import PairList from 'gui/components/PairList/PairList';
 import PairDetail from 'gui/components/PairDetail/PairDetail';
-
 import * as reducers from 'gui/reducers';
+require.context('./components/', true, /\.scss$/);
 
 
 const reducer = combineReducers({

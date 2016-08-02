@@ -1,5 +1,7 @@
-const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+
 
 const ROOT_DIR = path.resolve(__filename, '..');
 
@@ -32,7 +34,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin('style.css'),
+    new CopyWebpackPlugin([
+      {from: './images/default_avatar.svg'}
+    ])
   ],
   postcss: () => {
     return [
