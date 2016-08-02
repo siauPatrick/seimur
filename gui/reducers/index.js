@@ -1,1 +1,1 @@
-export pair from './pair';
+export pair from 'gui/reducers/pair';

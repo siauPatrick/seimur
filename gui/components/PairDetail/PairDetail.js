@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {fetchPair} from '../actions/pair';
+import {fetchPair} from 'gui/actions/pair';
 
 
 export class PairDetail extends React.Component {
