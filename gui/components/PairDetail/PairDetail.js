@@ -1,7 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {isEqual, isEmpty} from 'lodash';
+import {withRouter} from 'react-router'
 
-import {fetchPair} from 'gui/actions/pair';
+import {fetchPair, setLabel} from 'gui/actions/pair';
 
 
 export class PairDetail extends React.Component {
@@ -10,10 +12,32 @@ export class PairDetail extends React.Component {
     dispatch(fetchPair(params.id));
   }
 
-  render() {
-    const {isFetching, pair} = this.props;
+  componentWillReceiveProps({pair}) {
+    const oldPair = this.props.pair;
 
-    return <div>{pair.id}</div>
+    if (!isEmpty(oldPair) && !isEqual(oldPair, pair)) {
+      this.props.router.push('/pairs');
+    }
+  }
+
+  getOnClick(label) {
+    const {dispatch, params} = this.props;
+
+    return () => dispatch(setLabel(params.id, label));
+  }
+
+  render() {
+    const {pair} = this.props;
+
+    return (
+      <div>
+        {pair.id}
+        <div>
+          <button onClick={this.getOnClick(1)}>V</button>
+          <button onClick={this.getOnClick(-1)}>X</button>
+        </div>
+      </div>
+    )
   }
 }
 
@@ -22,4 +46,4 @@ export default connect(
     pair: state.pair.item,
     isFetching: state.pair.itemIsFetching
   })
-)(PairDetail)
+)(withRouter(PairDetail))
