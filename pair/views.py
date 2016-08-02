@@ -12,7 +12,7 @@ class IndexView(web.View):
           <link rel="stylesheet" href="/static/style.css">
           <script type="text/javascript" src="/static/bundle.js" defer></script>
         </head>
-        <body>
+        <body class="page">
           <section id="seimur-app"></section>
         </body>
         """

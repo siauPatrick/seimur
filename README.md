@@ -45,3 +45,7 @@ python app.py
 ```
 
 Open localhost:8080 in browser 
+
+```
+node_modules/csscomb/bin/csscomb components
+```

@@ -1,33 +1,41 @@
+import _ from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
 
 import {fetchPairList} from 'gui/actions/pair';
 
-
-function Pair({pair}) {
-  return (
-    <p>
-      <Link to={`/pairs/${pair.id}`} >
-        {pair.id}
-      </Link>
-    </p>
-  )
-}
-
+import Pair from 'gui/components/Pair/Pair';
 
 export class PairList extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
+
     dispatch(fetchPairList());
   }
 
   render() {
-    const {isFetching, pairList} = this.props;
+    const {pairList} = this.props;
 
     return (
-      <div>
-        {pairList.map(p => <Pair key={p.id} pair={p} />)}
+      <div className="pair-list">
+        {_.sortBy(pairList, pair => !!pair.label).map(pair => {
+          const pairProps = {
+            id: pair.id,
+            label: pair.label,
+            items: [
+              {
+                name: pair.first.name,
+                images: pair.first.pictures
+              },
+              {
+                name: pair.second.name,
+                images: pair.second.pictures
+              }
+            ]
+          };
+
+          return <Pair key={pairProps.id} {...pairProps} />
+        })}
       </div>
     )
   }
