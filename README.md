@@ -45,3 +45,8 @@ python app.py
 ```
 
 Open localhost:8080 in browser 
+
+Run CSScomb
+```
+npm run csscomb
+```

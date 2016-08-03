@@ -35,10 +35,16 @@ export default class Avatar extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <img src={this.state.imageUri}/>
-      </div>
-    )
+    const {className} = this.props;
+    const {imageUri} = this.state;
+
+    const attrs = {
+      className: className,
+      style: {
+        backgroundImage: `url(${imageUri})`
+      }
+    };
+
+    return <span {...attrs} />;
   }
 }
