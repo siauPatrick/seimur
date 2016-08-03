@@ -46,6 +46,7 @@ python app.py
 
 Open localhost:8080 in browser 
 
+Run CSScomb
 ```
-node_modules/csscomb/bin/csscomb components
+npm run csscomb
 ```

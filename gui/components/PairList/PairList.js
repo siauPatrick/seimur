@@ -1,10 +1,10 @@
-import _ from 'lodash';
+import {sortBy} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 
 import {fetchPairList} from 'gui/actions/pair';
 
-import Pair from 'gui/components/Pair/Pair';
+import PairCard from 'gui/components/PairCard/PairCard';
 
 export class PairList extends React.Component {
   componentDidMount() {
@@ -18,23 +18,25 @@ export class PairList extends React.Component {
 
     return (
       <div className="pair-list">
-        {_.sortBy(pairList, pair => !!pair.label).map(pair => {
-          const pairProps = {
+        {sortBy(pairList, pair => !!pair.label).map(pair => {
+          const pairCardProps = {
             id: pair.id,
             label: pair.label,
             items: [
               {
+                id: pair.first.docId,
                 name: pair.first.name,
                 images: pair.first.pictures
               },
               {
+                id: pair.second.docId,
                 name: pair.second.name,
                 images: pair.second.pictures
               }
             ]
           };
 
-          return <Pair key={pairProps.id} {...pairProps} />
+          return <PairCard key={pairCardProps.id} {...pairCardProps} />
         })}
       </div>
     )

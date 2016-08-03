@@ -6,7 +6,7 @@ $radius: 20px;
 $shadow-light: 0 0 20px -5px rgba(0, 0, 0, .4);
 $shadow-dark: 0 0 20px -3px rgba(0, 0, 0, .4);
 
-.pair {
+.pair-card {
     background-color: #fff;
     border-radius: $radius;
     border-top: 15px solid $color-grey;
@@ -39,13 +39,13 @@ $shadow-dark: 0 0 20px -3px rgba(0, 0, 0, .4);
             margin-left: -1px;
             text-align: right;
 
-            .pair__avatar {
+            .pair-card__avatar {
                 float: left;
             }
         }
 
         &:last-child {
-            .pair__avatar {
+            .pair-card__avatar {
                 float: right;
             }
         }
@@ -67,7 +67,7 @@ $shadow-dark: 0 0 20px -3px rgba(0, 0, 0, .4);
 }
 
 @include layout-small {
-    .pair {
+    .pair-card {
         &__avatar {
             height: $avatar-size-small;
             width: $avatar-size-small;

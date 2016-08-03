@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "build": "webpack --progress --colors --config ./webpack.config.js",
-    "build-dev": "webpack --progress --colors --watch --config ./webpack.config.js"
+    "build-dev": "webpack --progress --colors --watch --config ./webpack.config.js",
+    "csscomb": "node_modules/csscomb/bin/csscomb components"
   },
   "devDependencies": {
     "babel-core": "6.11.4",
@@ -29,6 +30,7 @@
     "webpack": "1.13.1"
   },
   "dependencies": {
+    "classnames": "2.2.5",
     "lodash": "4.14.0",
     "querystring": "0.2.0",
     "react": "15.2.1",
@@ -46,13 +48,7 @@
       "stage-0"
     ],
     "plugins": [
-      [
-        "resolver",
-        {
-          "resolveDirs": [
-            ".."
-          ]
-        }
+        ["resolver", {"resolveDirs": [".."]}
       ]
     ]
   }
