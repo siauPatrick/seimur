@@ -12,10 +12,64 @@ function requestPairList() {
 }
 
 
+function _profileModifier(profile) {
+  const education = profile.educations[0] ? profile.educations[0].nameRaw : '';
+
+  const firstCompany = profile.positions[0] || {};
+  const firstCompanyLabel = `${firstCompany.companyName || ''} ${firstCompany.startYear || ''} - ${firstCompany.endYear || ''}`;
+
+  const lastCompany = profile.positions[profile.positions.length - 1] || {};
+  const lastCompanyLabel = `${lastCompany.companyName || ''} ${lastCompany.startYear || ''} - ${lastCompany.endYear || ''}`;
+
+  return {
+    id: profile.docId,
+    name: profile.name || profile.nick,
+    nick: profile.nick,
+    images: profile.pictures,
+    location: profile.locations[0],
+    education,
+    sources: profile.sources,
+    firstCompanyLabel,
+    lastCompanyLabel
+  }
+}
+
+
 function receivePairList(json) {
+  /*
+  need to add:
+    skillInfo
+    organization
+    url
+    birthYear
+    birthMonth
+    birthDay
+    coursesAndCertificates
+    sources
+    nick
+    nicks
+    educations
+    locations
+    positions
+    mainSkills
+    names
+
+
+    было полезно, в каких компаиях работал и чем занимался
+    есть ли одинаковые ресурсы
+    места учебы
+   */
+
+  const items = json.map((p) => ({
+      ...p,
+      first: _profileModifier(p.first),
+      second: _profileModifier(p.second)
+    })
+  );
+
   return {
     type: RECEIVE_PAIR_LIST,
-    items: json
+    items: items
   }
 }
 

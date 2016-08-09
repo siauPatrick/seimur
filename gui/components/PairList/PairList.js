@@ -22,18 +22,7 @@ export class PairList extends React.Component {
           const pairCardProps = {
             id: pair.id,
             label: pair.label,
-            items: [
-              {
-                id: pair.first.docId,
-                name: pair.first.name,
-                images: pair.first.pictures
-              },
-              {
-                id: pair.second.docId,
-                name: pair.second.name,
-                images: pair.second.pictures
-              }
-            ]
+            items: [pair.first, pair.second]
           };
 
           return <PairCard key={pairCardProps.id} {...pairCardProps} />
