@@ -26,7 +26,9 @@ export default class Avatar extends React.Component {
     this.setState({imageUri});
   }
 
-  setExistingImage = (images) => {
+  setExistingImage = (sourceImages) => {
+    const images = [...sourceImages];
+
     const checkImage = () => {
       const imgUri = images.length ? images.shift() : this.defaultImageUri;
       this.getImage(imgUri).then(this.setImageUri, checkImage);
