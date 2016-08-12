@@ -22,7 +22,7 @@ const PairCard = (props) => {
           <hr/>
           <p className="pair-card__name">{item.nick}</p>
           <hr/>
-          <p className="pair-card__name">{item.location && item.location.locationId}</p>
+          <p className="pair-card__name">{item.location.locationId}</p>
           <hr/>
           <p className="pair-card__name">{item.education}</p>
           <hr/>
