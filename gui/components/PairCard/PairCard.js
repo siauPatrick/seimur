@@ -19,6 +19,17 @@ const PairCard = (props) => {
         <div key={item.id} className="pair-card__item">
           <Avatar className="pair-card__avatar" images={item.images}/>
           <p className="pair-card__name">{item.name}</p>
+          <hr/>
+          <p className="pair-card__name">{item.nick}</p>
+          <hr/>
+          <p className="pair-card__name">{item.location.locationId}</p>
+          <hr/>
+          <p className="pair-card__name">{item.education}</p>
+          <hr/>
+          <p className="pair-card__name">{item.firstCompanyLabel}</p>
+          <p className="pair-card__name">{item.lastCompanyLabel}</p>
+          <hr/>
+          {item.sources.map((s) => (<p className="pair-card__name"><a href={s}>{(new URL(s)).hostname}</a></p>))}
         </div>
       ))}
     </Link>

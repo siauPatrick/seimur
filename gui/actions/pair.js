@@ -1,3 +1,5 @@
+import {compact, get, last} from 'lodash';
+
 import {
   REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
   REQUEST_PAIR, RECEIVE_PAIR,
@@ -12,10 +14,66 @@ function requestPairList() {
 }
 
 
+function _buildCompanyLabel(company={}) {
+  const companyName = company.companyName || '';
+  const workPeriod = compact([company.startYear, company.endYear]).join('-');
+
+  return `${companyName} ${workPeriod}`
+}
+
+
+function _profileModifier(profile) {
+  const education = get(profile.educations, '[0].nameRaw', '');
+
+  return {
+    id: profile.docId,
+    name: profile.name || profile.nick,
+    nick: profile.nick,
+    images: profile.pictures,
+    location: profile.locations[0] || {},
+    education,
+    sources: profile.sources,
+    firstCompanyLabel: _buildCompanyLabel(profile.positions[0]),
+    lastCompanyLabel: _buildCompanyLabel(last(profile.positions[0]))
+  }
+}
+
+
 function receivePairList(json) {
+  /*
+  need to add:
+    skillInfo
+    organization
+    url
+    birthYear
+    birthMonth
+    birthDay
+    coursesAndCertificates
+    sources
+    nick
+    nicks
+    educations
+    locations
+    positions
+    mainSkills
+    names
+
+
+    было полезно, в каких компаниях работал и чем занимался
+    есть ли одинаковые ресурсы
+    места учебы
+   */
+
+  const items = json.map((pair) => ({
+      ...pair,
+      first: _profileModifier(pair.first),
+      second: _profileModifier(pair.second)
+    })
+  );
+
   return {
     type: RECEIVE_PAIR_LIST,
-    items: json
+    items: items
   }
 }
 
