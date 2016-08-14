@@ -36,7 +36,7 @@ cd gui && npm i
 
 Build bundle.js and start watcher
 ```
-node run build-dev
+npm run build-dev
 ```
 
 Run aiohttp server
@@ -49,4 +49,10 @@ Open localhost:8080 in browser
 Run CSScomb
 ```
 npm run csscomb
+```
+
+Run local spark
+```
+source ~/anaconda/bin/activate root
+PYSPARK_PYTHON=/Users/siauz/anaconda/bin/python3 IPYTHON=1 IPYTHON_OPTS="notebook" ~/spark/bin/pyspark
 ```

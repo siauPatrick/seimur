@@ -28,7 +28,7 @@ export class PairDetail extends React.Component {
   componentWillReceiveProps({pair}) {
     const oldPair = this.props.pair;
 
-    if (!isEmpty(oldPair) && !isEqual(oldPair, pair)) {
+    if (!isEmpty(oldPair) && oldPair.id === pair.id && !isEqual(oldPair, pair)) {
       this.props.router.push('/pairs');
     }
   }
