@@ -22,8 +22,8 @@ const PairCard = (props) => {
   const {id, label, items} = props;
 
   const className = classNames('pair-card', {
-    'pair-card_same': label === 1,
-    'pair-card_not-same': label === -1
+    'pair-card_positive': label === 1,
+    'pair-card_negative': label === -1
   });
 
   const pairInfoProps = {

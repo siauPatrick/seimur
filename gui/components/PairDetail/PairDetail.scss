@@ -1,4 +1,4 @@
-@import '../consts.scss';
+@import '../constants.scss';
 
 .pair-detail {
     background-color: #fff;
@@ -18,19 +18,27 @@
 
     &__button {
         background-color: #fff;
-        border: 1px solid $color-grey;
+        border: 5px solid #fff;
         border-radius: $radius;
         box-shadow: $shadow-light;
         box-sizing: border-box;
         cursor: pointer;
         display: inline-block;
-        line-height: 30px;
+        height: 30px;
         margin: 0 10px;
         text-align: center;
         width: 50px;
 
         &:hover {
             box-shadow: $shadow-dark;
+        }
+
+        &:first-child {
+            background-color: $color-positive;
+        }
+
+        &:last-child {
+            background-color: $color-negative;
         }
     }
 }

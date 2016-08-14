@@ -76,14 +76,8 @@ export class PairDetail extends React.Component {
       <div className="pair-detail">
         <PairInfo {...pairInfoProps} />
         <div className="pair-detail__buttons">
-          <span
-              className="pair-detail__button"
-              onClick={this.getOnClick(1)}
-          >V</span>
-          <span
-              className="pair-detail__button"
-              onClick={this.getOnClick(-1)}
-          >X</span>
+          <span className="pair-detail__button" onClick={this.getOnClick(1)} />
+          <span className="pair-detail__button" onClick={this.getOnClick(-1)} />
         </div>
       </div>
     )

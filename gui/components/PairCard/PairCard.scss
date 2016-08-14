@@ -1,4 +1,4 @@
-@import '../consts.scss';
+@import '../constants.scss';
 
 .pair-card {
     background-color: #fff;
@@ -16,12 +16,12 @@
         color: $color-link;
     }
 
-    &_same {
-        border-top-color: $color-same;
+    &_positive {
+        border-top-color: $color-positive;
     }
 
-    &_not-same {
-        border-top-color: $color-not-same;
+    &_negative {
+        border-top-color: $color-negative;
     }
 
     &__link {
