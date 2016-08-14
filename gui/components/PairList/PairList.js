@@ -1,11 +1,9 @@
-import {sortBy} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 
-import {fetchPairList} from 'gui/actions/pair';
-
-import LabelingStatus from 'gui/components//LabelingStatus/LabelingStatus';
+import LabelingStatus from 'gui/components/LabelingStatus/LabelingStatus';
 import PairCard from 'gui/components/PairCard/PairCard';
+import {fetchPairList} from 'gui/actions/pair';
 
 
 export class PairList extends React.Component {
