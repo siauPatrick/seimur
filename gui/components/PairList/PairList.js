@@ -1,4 +1,3 @@
-import {sortBy} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 
@@ -18,7 +17,7 @@ export class PairList extends React.Component {
 
     return (
       <div className="pair-list">
-        {sortBy(pairList, pair => !!pair.label).map(pair => {
+        {pairList.map(pair => {
           const pairCardProps = {
             id: pair.id,
             label: pair.label,

@@ -1,10 +1,4 @@
-@import '../mixins.scss';
-$avatar-size-large: 200px;
-$avatar-size-small: 150px;
-$color-grey: #ccc;
-$radius: 20px;
-$shadow-light: 0 0 20px -5px rgba(0, 0, 0, .4);
-$shadow-dark: 0 0 20px -3px rgba(0, 0, 0, .4);
+@import '../consts.scss';
 
 .pair-card {
     background-color: #fff;
@@ -15,62 +9,23 @@ $shadow-dark: 0 0 20px -3px rgba(0, 0, 0, .4);
     display: block;
     margin-bottom: 20px;
     padding: 10px 0;
+    text-decoration: none;
 
     &:hover {
         box-shadow: $shadow-dark;
-        color: #158a9b;
+        color: $color-link;
     }
 
     &_same {
-        border-top-color: #0f0;
+        border-top-color: $color-same;
     }
 
     &_not-same {
-        border-top-color: #f00;
+        border-top-color: $color-not-same;
     }
 
-    &__item {
-        display: inline-block;
-        vertical-align: top;
-        width: 50%;
-
-        &:first-child {
-            border-right: 1px solid $color-grey;
-            margin-left: -1px;
-            text-align: right;
-
-            .pair-card__avatar {
-                float: left;
-            }
-        }
-
-        &:last-child {
-            .pair-card__avatar {
-                float: right;
-            }
-        }
-    }
-
-    &__avatar {
-        background-position: 50% 0;
-        background-repeat: no-repeat;
-        background-size: cover;
-        border-radius: $radius;
-        height: $avatar-size-large;
-        margin: 0 10px;
-        width: $avatar-size-large;
-    }
-
-    &__name {
-        margin: 10px;
-    }
-}
-
-@include layout-small {
-    .pair-card {
-        &__avatar {
-            height: $avatar-size-small;
-            width: $avatar-size-small;
-        }
+    &__link {
+        color: $color-link;
+        display: block;
     }
 }

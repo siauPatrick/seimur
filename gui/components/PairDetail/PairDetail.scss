@@ -1,0 +1,36 @@
+@import '../consts.scss';
+
+.pair-detail {
+    background-color: #fff;
+    border-radius: $radius;
+    box-shadow: $shadow-light;
+    margin: 50px auto 30px;
+    max-width: 1024px;
+    padding: 10px;
+
+    &__buttons {
+        left: 50%;
+        margin-left: -70px;
+        position: fixed;
+        top: 10px;
+        width: 140px;
+    }
+
+    &__button {
+        background-color: #fff;
+        border: 1px solid $color-grey;
+        border-radius: $radius;
+        box-shadow: $shadow-light;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        line-height: 30px;
+        margin: 0 10px;
+        text-align: center;
+        width: 50px;
+
+        &:hover {
+            box-shadow: $shadow-dark;
+        }
+    }
+}

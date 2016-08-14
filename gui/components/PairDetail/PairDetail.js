@@ -1,10 +1,23 @@
+import {isEqual, isEmpty, flatten} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
-import {isEqual, isEmpty} from 'lodash';
 import {withRouter} from 'react-router'
 
 import {fetchPair, setLabel} from 'gui/actions/pair';
 
+import Avatar from 'gui/components/Avatar/Avatar';
+import PairInfo from 'gui/components/PairInfo/PairInfo';
+
+const KEYS = [
+  'avatar',
+  'name',
+  'nick',
+  'location',
+  'education',
+  'firstCompanyLabel',
+  'lastCompanyLabel',
+  'sources'
+];
 
 export class PairDetail extends React.Component {
   componentDidMount() {
@@ -29,12 +42,48 @@ export class PairDetail extends React.Component {
   render() {
     const {pair} = this.props;
 
+    if(isEmpty(pair)) {
+      return null;
+    }
+
+    const items = [pair.first, pair.second];
+
+    const pairInfoProps = {
+      items: flatten(KEYS.map(key =>
+        items.map(item => {
+          switch (key) {
+            case 'avatar':
+              return <Avatar images={item.pictures}/>;
+
+            case 'location':
+              return item[key].locationId;
+
+            case 'sources':
+              return item.sources.map(source => (
+                <a key={source} href={source} className="pair-card__link">
+                  {(new URL(source)).hostname}
+                </a>
+              ));
+
+            default:
+              return item[key]
+          }
+        })
+      ))
+    };
+
     return (
-      <div>
-        {pair.id}
-        <div>
-          <button onClick={this.getOnClick(1)}>V</button>
-          <button onClick={this.getOnClick(-1)}>X</button>
+      <div className="pair-detail">
+        <PairInfo {...pairInfoProps} />
+        <div className="pair-detail__buttons">
+          <span
+              className="pair-detail__button"
+              onClick={this.getOnClick(1)}
+          >V</span>
+          <span
+              className="pair-detail__button"
+              onClick={this.getOnClick(-1)}
+          >X</span>
         </div>
       </div>
     )

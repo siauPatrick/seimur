@@ -1,0 +1,23 @@
+@import '../consts.scss';
+
+.pair-info {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__cell {
+        border-top: 1px solid $color-grey;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 50%;
+
+        &:first-child,
+        &:nth-child(2) {
+            border-top: none;
+        }
+
+        &:nth-child(odd) {
+            border-right: 1px solid $color-grey;
+            text-align: right;
+        }
+    }
+}
