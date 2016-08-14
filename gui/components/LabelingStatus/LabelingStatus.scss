@@ -1,5 +1,5 @@
-$color-grey: #ccc;
-$shadow-light: 0 0 20px -5px rgba(0, 0, 0, .4);
+@import '../constants.scss';
+
 
 .labeling-status {
     display: inline-block;
@@ -7,12 +7,12 @@ $shadow-light: 0 0 20px -5px rgba(0, 0, 0, .4);
     box-shadow: $shadow-light;
     margin-bottom: 30px;
 
-    &__positive-labeled {
-        color: #0f0;
+    &__positive {
+        color: $color-positive;
     }
 
-    &__negative-labeled {
-        color: #f00;
+    &__negative {
+        color: $color-negative;
     }
 
     &__unlabeled {
