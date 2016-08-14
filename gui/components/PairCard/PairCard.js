@@ -1,37 +1,58 @@
+import {flatten} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import classNames from 'classnames';
 
 import Avatar from 'gui/components/Avatar/Avatar'
+import PairInfo from 'gui/components/PairInfo/PairInfo';
+
+const KEYS = [
+  'avatar',
+  'name',
+  'nick',
+  'location',
+  'education',
+  'firstCompanyLabel',
+  'lastCompanyLabel',
+  'sources'
+];
 
 const PairCard = (props) => {
   const {id, label, items} = props;
 
   const className = classNames('pair-card', {
-      'pair-card_same': label === 1,
-      'pair-card_not-same': label === -1
-    });
+    'pair-card_positive': label === 1,
+    'pair-card_negative': label === -1
+  });
+
+  const pairInfoProps = {
+    items: flatten(KEYS.map(key =>
+      items.map(item => {
+        switch (key) {
+          case 'avatar':
+            return <Avatar images={item.images}/>;
+
+          case 'location':
+            return item[key].locationId;
+
+          case 'sources':
+            return item.sources.map(source => (
+              <a key={source} href={source} className="pair-card__link">
+                {(new URL(source)).hostname}
+              </a>
+            ));
+
+          default:
+            return item[key]
+        }
+      })
+    ))
+  };
 
   return (
     <Link to={`/pairs/${id}`} className={className}>
-      {items.map(item => (
-        <div key={item.id} className="pair-card__item">
-          <Avatar className="pair-card__avatar" images={item.images}/>
-          <p className="pair-card__name">{item.name}</p>
-          <hr/>
-          <p className="pair-card__name">{item.nick}</p>
-          <hr/>
-          <p className="pair-card__name">{item.location.locationId}</p>
-          <hr/>
-          <p className="pair-card__name">{item.education}</p>
-          <hr/>
-          <p className="pair-card__name">{item.firstCompanyLabel}</p>
-          <p className="pair-card__name">{item.lastCompanyLabel}</p>
-          <hr/>
-          {item.sources.map((s) => (<p className="pair-card__name"><a href={s}>{(new URL(s)).hostname}</a></p>))}
-        </div>
-      ))}
+      <PairInfo {...pairInfoProps} />
     </Link>
   );
 };

@@ -1,0 +1,21 @@
+@import '../constants.scss';
+@import '../mixins.scss';
+$avatar-size-large: 200px;
+$avatar-size-small: 150px;
+
+.avatar {
+    background-position: 50% 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: $radius;
+    display: inline-block;
+    height: $avatar-size-large;
+    width: $avatar-size-large;
+}
+
+@include layout-small {
+    .avatar {
+        height: $avatar-size-small;
+        width: $avatar-size-small;
+    }
+}

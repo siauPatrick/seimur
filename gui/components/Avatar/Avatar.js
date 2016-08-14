@@ -37,16 +37,16 @@ export default class Avatar extends React.Component {
   }
 
   render() {
-    const {className} = this.props;
     const {imageUri} = this.state;
 
     const attrs = {
-      className: className,
       style: {
         backgroundImage: `url(${imageUri})`
       }
     };
 
-    return <span {...attrs} />;
+    return (
+        <span className="avatar" {...attrs} />
+    );
   }
 }
