@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from aiohttp import web
 
 from pair.model import get_pair_list, get_pair, set_pair_label
@@ -25,7 +27,13 @@ class PairListCreateAPIView(web.View):
         получение списка пар профилей
         """
         pair_list = get_pair_list()
-        return web.json_response(pair_list)
+        now = datetime.utcnow().isoformat()
+        sorted_pair_list = sorted(
+            pair_list,
+            reverse=True,
+            key=lambda p: p.get('modified_date', now)
+        )
+        return web.json_response(sorted_pair_list)
 
     async def post(self):
         """

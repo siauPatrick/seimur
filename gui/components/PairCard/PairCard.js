@@ -5,13 +5,14 @@ import classNames from 'classnames';
 
 import Avatar from 'gui/components/Avatar/Avatar'
 
+
 const PairCard = (props) => {
   const {id, label, items} = props;
 
   const className = classNames('pair-card', {
-      'pair-card_same': label === 1,
-      'pair-card_not-same': label === -1
-    });
+    'pair-card_same': label === 1,
+    'pair-card_not-same': label === -1
+  });
 
   return (
     <Link to={`/pairs/${id}`} className={className}>
@@ -29,7 +30,12 @@ const PairCard = (props) => {
           <p className="pair-card__name">{item.firstCompanyLabel}</p>
           <p className="pair-card__name">{item.lastCompanyLabel}</p>
           <hr/>
-          {item.sources.map((s) => (<p className="pair-card__name"><a href={s}>{(new URL(s)).hostname}</a></p>))}
+          {item.sources.map((uri, index) => (
+            <p key={index} className="pair-card__name">
+              <a href={uri}>{(new URL(uri)).hostname}</a>
+            </p>
+            )
+          )}
         </div>
       ))}
     </Link>

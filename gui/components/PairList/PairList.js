@@ -4,7 +4,9 @@ import {connect} from 'react-redux';
 
 import {fetchPairList} from 'gui/actions/pair';
 
+import LabelingStatus from 'gui/components//LabelingStatus/LabelingStatus';
 import PairCard from 'gui/components/PairCard/PairCard';
+
 
 export class PairList extends React.Component {
   componentDidMount() {
@@ -18,7 +20,9 @@ export class PairList extends React.Component {
 
     return (
       <div className="pair-list">
-        {sortBy(pairList, pair => !!pair.label).map(pair => {
+        <LabelingStatus pairList={pairList} />
+
+        {pairList.map(pair => {
           const pairCardProps = {
             id: pair.id,
             label: pair.label,
