@@ -8,8 +8,12 @@ export default class Avatar extends React.Component {
 
   defaultImageUri = '/static/default_avatar.svg';
 
-  componentDidMount = () => {
+  componentDidMount() {
     const {images} = this.props;
+    this.setExistingImage(images);
+  }
+
+  componentWillReceiveProps({images}) {
     this.setExistingImage(images);
   }
 

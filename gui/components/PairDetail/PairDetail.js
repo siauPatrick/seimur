@@ -3,10 +3,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router'
 
-import {fetchPair, setLabel} from 'gui/actions/pair';
-
 import Avatar from 'gui/components/Avatar/Avatar';
 import PairInfo from 'gui/components/PairInfo/PairInfo';
+import {fetchPair, setLabel} from 'gui/actions/pair';
+
 
 const KEYS = [
   'avatar',
@@ -53,7 +53,7 @@ export class PairDetail extends React.Component {
         items.map(item => {
           switch (key) {
             case 'avatar':
-              return <Avatar images={item.pictures}/>;
+              return <Avatar images={item.pictures} />;
 
             case 'location':
               return item[key].locationId;

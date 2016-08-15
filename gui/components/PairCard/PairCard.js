@@ -1,11 +1,12 @@
-import {flatten} from 'lodash';
+import classNames from 'classnames';
 import React from 'react';
 import {connect} from 'react-redux';
+import {flatten} from 'lodash';
 import {Link} from 'react-router';
-import classNames from 'classnames';
 
 import Avatar from 'gui/components/Avatar/Avatar'
 import PairInfo from 'gui/components/PairInfo/PairInfo';
+
 
 const KEYS = [
   'avatar',
@@ -31,7 +32,7 @@ const PairCard = (props) => {
       items.map(item => {
         switch (key) {
           case 'avatar':
-            return <Avatar images={item.images}/>;
+            return <Avatar images={item.images} />;
 
           case 'location':
             return item[key].locationId;
