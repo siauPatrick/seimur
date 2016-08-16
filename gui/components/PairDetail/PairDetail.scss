@@ -3,10 +3,19 @@
 .pair-detail {
     background-color: #fff;
     border-radius: $radius;
+    border-top: 15px solid $color-grey;
     box-shadow: $shadow-light;
     margin: 50px auto 30px;
     max-width: 1024px;
     padding: 10px;
+
+    &_positive {
+        border-top-color: $color-positive;
+    }
+
+    &_negative {
+        border-top-color: $color-negative;
+    }
 
     &__buttons {
         left: 50%;
