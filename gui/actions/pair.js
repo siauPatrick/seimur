@@ -39,6 +39,15 @@ function _profileModifier(profile) {
 }
 
 
+function _pairModifier(pair) {
+  return {
+    ...pair,
+    first: _profileModifier(pair.first),
+    second: _profileModifier(pair.second)
+  }
+}
+
+
 function receivePairList(json) {
   /*
   need to add:
@@ -64,16 +73,9 @@ function receivePairList(json) {
     места учебы
    */
 
-  const items = json.map((pair) => ({
-      ...pair,
-      first: _profileModifier(pair.first),
-      second: _profileModifier(pair.second)
-    })
-  );
-
   return {
     type: RECEIVE_PAIR_LIST,
-    items: items
+    items: json.map(_pairModifier)
   }
 }
 
@@ -98,7 +100,7 @@ function requestPair() {
 function receivePair(json) {
   return {
     type: RECEIVE_PAIR,
-    item: json
+    item: _pairModifier(json)
   }
 }
 

@@ -9,7 +9,6 @@ import {fetchPairList} from 'gui/actions/pair';
 export class PairList extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
-
     dispatch(fetchPairList());
   }
 

@@ -1,12 +1,13 @@
+import classNames from 'classnames';
 import {isEqual, isEmpty, flatten} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router'
 
-import {fetchPair, setLabel} from 'gui/actions/pair';
-
 import Avatar from 'gui/components/Avatar/Avatar';
 import PairInfo from 'gui/components/PairInfo/PairInfo';
+import {fetchPair, setLabel} from 'gui/actions/pair';
+
 
 const KEYS = [
   'avatar',
@@ -53,7 +54,7 @@ export class PairDetail extends React.Component {
         items.map(item => {
           switch (key) {
             case 'avatar':
-              return <Avatar images={item.pictures}/>;
+              return <Avatar images={item.images} />;
 
             case 'location':
               return item[key].locationId;
@@ -72,8 +73,13 @@ export class PairDetail extends React.Component {
       ))
     };
 
+    const className = classNames('pair-detail', {
+      'pair-detail_positive': pair.label === 1,
+      'pair-detail_negative': pair.label === -1
+    });
+
     return (
-      <div className="pair-detail">
+      <div className={className}>
         <PairInfo {...pairInfoProps} />
         <div className="pair-detail__buttons">
           <span className="pair-detail__button" onClick={this.getOnClick(1)} />
