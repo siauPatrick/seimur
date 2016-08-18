@@ -56,3 +56,10 @@ Run local spark
 source ~/anaconda/bin/activate root
 PYSPARK_PYTHON=/Users/siauz/anaconda/bin/python3 IPYTHON=1 IPYTHON_OPTS="notebook" ~/spark/bin/pyspark
 ```
+
+
+Enable PyCharm support for Spark
+```
+Preferences -> Project -> Interpretator -> More -> Path
+add spark/python
+```
