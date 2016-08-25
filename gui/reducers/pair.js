@@ -1,6 +1,6 @@
 import {
   REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
-  REQUEST_PAIR, RECEIVE_PAIR,
+  REQUEST_PAIR, RECEIVE_PAIR, RESET_PAIR,
   START_SET_LABEL, END_SET_LABEL
 } from 'gui/constants';
 
@@ -37,6 +37,11 @@ export default function update(state = initialState, action) {
         itemIsFetching: false,
         item: action.item,
       };
+    case RESET_PAIR:
+      return {
+        ...state,
+        item: {}
+      };
     case START_SET_LABEL:
       return {
         ...state,
@@ -46,7 +51,7 @@ export default function update(state = initialState, action) {
       return {
         ...state,
         itemIsFetching: false,
-        item: action.item,
+        item: action.item
       };
     default:
       return state

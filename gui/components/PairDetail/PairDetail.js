@@ -1,26 +1,31 @@
 import classNames from 'classnames';
-import {isEqual, isEmpty, flatten} from 'lodash';
 import React from 'react';
 import {connect} from 'react-redux';
-import {withRouter} from 'react-router'
+import {isEqual, isEmpty, flatten} from 'lodash';
+import {withRouter} from 'react-router';
 
 import Avatar from 'gui/components/Avatar/Avatar';
 import PairInfo from 'gui/components/PairInfo/PairInfo';
-import {fetchPair, setLabel} from 'gui/actions/pair';
+import {fetchPair, resetPair, setLabel} from 'gui/actions/pair';
 
 
 const KEYS = [
   'avatar',
-  'name',
-  'nick',
-  'location',
-  'education',
+  'names',
+  'nicks',
+  'locations',
+  'educations',
   'firstCompanyLabel',
   'lastCompanyLabel',
   'sources'
 ];
 
 export class PairDetail extends React.Component {
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch(resetPair());
+  }
+
   componentDidMount() {
     const {dispatch, params} = this.props;
     dispatch(fetchPair(params.id));
@@ -54,20 +59,29 @@ export class PairDetail extends React.Component {
         items.map(item => {
           switch (key) {
             case 'avatar':
-              return <Avatar images={item.images} />;
+              return {component: <Avatar images={item.images} />};
 
-            case 'location':
-              return item[key].locationId;
+            case 'locations':
+              return {key, component: item[key].map((location, index) => <p key={index}>{location.locationId}</p>)};
+
+            case 'educations':
+              return {key, component: item[key].map((education, index) => <p key={index}>{education.nameRaw}</p>)};
 
             case 'sources':
-              return item.sources.map(source => (
+              const sources = item.sources.map(source => (
                 <a key={source} href={source} className="pair-card__link">
                   {(new URL(source)).hostname}
                 </a>
               ));
 
+              return {key, component: sources};
+
             default:
-              return item[key]
+              const component = Array.isArray(item[key])
+                ? item[key].map((name, index) => <p key={index}>{name}</p>)
+                : item[key];
+
+              return {key, component: component}
           }
         })
       ))

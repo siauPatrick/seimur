@@ -7,7 +7,8 @@ const PairInfo = (props) => {
     <div className="pair-info">
       {items.map((item, index) => (
         <div key={index} className="pair-info__cell">
-          {item}
+          <p className="pair-info__label">{item.key}</p>
+          {item.component}
         </div>
       ))}
     </div>

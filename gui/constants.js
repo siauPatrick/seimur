@@ -1,6 +1,9 @@
 export const REQUEST_PAIR_LIST = 'REQUEST_PAIR_LIST';
 export const RECEIVE_PAIR_LIST = 'RECEIVE_PAIR_LIST';
+
 export const REQUEST_PAIR = 'REQUEST_PAIR';
 export const RECEIVE_PAIR = 'RECEIVE_PAIR';
+export const RESET_PAIR = 'RESET_PAIR';
+
 export const START_SET_LABEL = 'START_SET_LABEL';
 export const END_SET_LABEL = 'END_SET_LABEL';
