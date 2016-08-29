@@ -2,7 +2,7 @@ import {compact, get, last} from 'lodash';
 
 import {
   REQUEST_PAIR_LIST, RECEIVE_PAIR_LIST,
-  REQUEST_PAIR, RECEIVE_PAIR,
+  REQUEST_PAIR, RECEIVE_PAIR, RESET_PAIR,
   START_SET_LABEL, END_SET_LABEL
 } from 'gui/constants';
 
@@ -28,10 +28,14 @@ function _profileModifier(profile) {
   return {
     id: profile.docId,
     name: profile.name || profile.nick,
+    names: profile.names,
     nick: profile.nick,
+    nicks: profile.nicks,
     images: profile.pictures,
     location: profile.locations[0] || {},
+    locations: profile.locations,
     education,
+    educations: profile.educations,
     sources: profile.sources,
     firstCompanyLabel: _buildCompanyLabel(profile.positions[0]),
     lastCompanyLabel: _buildCompanyLabel(last(profile.positions[0]))
@@ -105,6 +109,13 @@ function receivePair(json) {
 }
 
 
+export function resetPair() {
+  return {
+    type: RESET_PAIR
+  }
+}
+
+
 export function fetchPair(pairId) {
   return (dispatch) => {
     dispatch(requestPair());
@@ -124,7 +135,7 @@ function startSetLabel() {
 function endSetLabel(json) {
   return {
     type: END_SET_LABEL,
-    item: json
+    item: _pairModifier(json)
   }
 }
 

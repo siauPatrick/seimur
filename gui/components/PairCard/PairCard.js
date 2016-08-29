@@ -32,20 +32,26 @@ const PairCard = (props) => {
       items.map(item => {
         switch (key) {
           case 'avatar':
-            return <Avatar images={item.images} />;
+            return {component: <Avatar images={item.images} />};
 
           case 'location':
-            return item[key].locationId;
+            return {key, component: item[key].locationId};
 
           case 'sources':
-            return item.sources.map(source => (
-              <a key={source} href={source} className="pair-card__link">
-                {(new URL(source)).hostname}
-              </a>
-            ));
+            const sources = item.sources.map(source => (
+                <a key={source} href={source} className="pair-card__link">
+                  {(new URL(source)).hostname}
+                </a>
+              ));
+
+              return {key, component: sources};
 
           default:
-            return item[key]
+            const component = Array.isArray(item[key])
+              ? item[key].map((name, index) => <p key={index}>{name}</p>)
+              : item[key];
+
+            return {key, component: component}
         }
       })
     ))
