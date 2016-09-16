@@ -1,6 +1,7 @@
 from collections import OrderedDict
 from os.path import basename
 from urllib.parse import urlparse
+import json
 import pickle
 
 from fuzzywuzzy import fuzz
@@ -8,6 +9,7 @@ from pyspark import SparkContext
 from pyspark.mllib.classification import LogisticRegressionWithSGD
 from pyspark.mllib.evaluation import BinaryClassificationMetrics
 from pyspark.mllib.regression import LabeledPoint
+from scipy.stats import entropy
 
 
 def _unpickle_pairs():
@@ -54,15 +56,18 @@ def last_educations_diff(education1, education2):
 
 
 def is_same_resource(sources1, sources2):
-    host1 = urlparse(sources1[0]).hostname.split('.')[-2]
-    host2 = urlparse(sources2[0]).hostname.split('.')[-2]
+    host1 = urlparse(sources1[0]).hostname
+    host2 = urlparse(sources2[0]).hostname
 
-    return host1 == host2
+    resource1 = host1.split('.')[-2] if '.' in host1 else host1
+    resource2 = host2.split('.')[-2] if '.' in host2 else host2
+
+    return resource1 == resource2
 
 
 def process_batch(batch, is_train=False):
-    p1 = batch['first']
-    p2 = batch['second']
+    p1 = batch['first'] if is_train else batch['up1']
+    p2 = batch['second'] if is_train else batch['up2']
 
     features = OrderedDict([
         ('age_diff', age_diff(p1['age'], p2['age'])),
@@ -84,24 +89,69 @@ def to_labeled_point(features_and_label):
     return LabeledPoint(label, features)
 
 
+def train_committee(train_features, test_features, size=5):
+    committee = []
+    attempts = 0
+    max_attempts = size * 4
+    roc_threshold = 0.7
+
+    test_pairs_features = test_features.map(lambda p: process_batch(p, is_train=True))
+    test_labeled_pairs = test_pairs_features.map(to_labeled_point)
+
+    while len(committee) < size and attempts < max_attempts:
+        attempts += 1
+
+        pairs_features = train_features.map(lambda p: process_batch(p, is_train=True))
+        labeled_points = pairs_features.map(to_labeled_point).sample(True, 1)
+
+        model = LogisticRegressionWithSGD.train(labeled_points)
+        model.clearThreshold()
+        scores_and_labels = test_labeled_pairs.map(lambda p: (model.predict(p.features), p.label))
+
+        metrics = BinaryClassificationMetrics(scores_and_labels)
+        if metrics.areaUnderROC > roc_threshold:
+            print(attempts, metrics.areaUnderROC)
+            committee.append(model)
+
+    return committee
+
+
+def _pair_to_id(pair):
+    return '_'.join(map(str, sorted([pair['up1']['docId'], pair['up2']['docId']])))
+
+
+def average_kl(predicts):
+    predicts_number = len(predicts)
+
+    consensus_probability_of_same = sum(predicts) / predicts_number
+    consensus_probability = (consensus_probability_of_same, 1 - consensus_probability_of_same)
+
+    return sum(entropy((p, 1 - p), consensus_probability) for p in predicts) / predicts_number
+
+
+def get_unsure_pairs(committee, pairs):
+    pairs_features = pairs.map(lambda p: (_pair_to_id(p), process_batch(p, is_train=False)))
+    predicts = pairs_features.mapValues(lambda p: list(map(lambda c: c.predict(list(p.values())), committee)))
+    kl_distances = predicts.mapValues(lambda p: average_kl(p))
+    return kl_distances.takeOrdered(10, key=lambda p: -p[1])
+
+
 if __name__ == '__main__':
     sc = SparkContext(appName=basename(__file__))
 
-    unpickled_pairs = _unpickle_pairs()
-    train_pairs = (unpickled_pairs[id] for id in sorted(unpickled_pairs)[:20])
-    test_pairs = (unpickled_pairs[id] for id in sorted(unpickled_pairs)[20:])
+    unpickled_pairs_dict = _unpickle_pairs()
+    unpickled_pairs = [
+        unpickled_pairs_dict[id]
+        for id in sorted(unpickled_pairs_dict)
+        if unpickled_pairs_dict[id].get('label')
+    ]
 
-    train_pairs = sc.parallelize(train_pairs).filter(lambda p: p.get('label'))
-    pairs_features = train_pairs.map(lambda p: process_batch(p, is_train=True))
-    labeled_points = pairs_features.map(to_labeled_point)
-    model = LogisticRegressionWithSGD.train(labeled_points)
-    model.clearThreshold()
+    train_pairs = sc.parallelize(unpickled_pairs[20:])
+    test_pairs = sc.parallelize(unpickled_pairs[:20])
+    committee = train_committee(train_pairs, test_pairs, 10)
 
-    test_pairs_features = sc.parallelize(test_pairs).map(lambda p: process_batch(p, is_train=True))
-    test_labeled_pairs = test_pairs_features.map(to_labeled_point)
-    scores_and_labels = test_labeled_pairs.map(lambda p: (model.predict(p.features), p.label))
-
-    metrics = BinaryClassificationMetrics(scores_and_labels)
-    print(metrics.areaUnderROC)
+    pairs = sc.textFile('/Users/siauz/min_pairs').map(json.loads)
+    unsure_pairs = get_unsure_pairs(committee, pairs)
+    print(unsure_pairs)
 
     sc.stop()

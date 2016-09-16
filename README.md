@@ -2,6 +2,7 @@
 
 Active learning framework for finding same social account.
 
+
 ## dev start
 
 Install python3.5
@@ -46,6 +47,9 @@ python app.py
 
 Open localhost:8080 in browser 
 
+
+## useful commands
+
 Run CSScomb
 ```
 npm run csscomb
@@ -55,6 +59,14 @@ Run local spark
 ```
 source ~/anaconda/bin/activate root
 PYSPARK_PYTHON=/Users/siauz/anaconda/bin/python3 IPYTHON=1 IPYTHON_OPTS="notebook" ~/spark/bin/pyspark
+```
+
+
+Run spark app
+
+```
+# run in anaconda env
+~/spark/bin/spark-submit commands/convert_pairs.py
 ```
 
 
