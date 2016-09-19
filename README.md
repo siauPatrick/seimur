@@ -75,3 +75,23 @@ Enable PyCharm support for Spark
 Preferences -> Project -> Interpretator -> More -> Path
 add spark/python
 ```
+
+
+Vagrant
+```
+java: http://arturmkrtchyan.com/apache-spark-hidden-rest-api
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:webupd8team/java
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+
+
+spark: http://spark.apache.org/downloads.html
+wget -q http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz -P /tmp
+tar zxf /tmp/spark-2.0.0-bin-hadoop2.7.tgz && mv spark-2* spark
+
+
+python
+apt-get install python3-venv
+python3 -m venv envs/seimur
+```
