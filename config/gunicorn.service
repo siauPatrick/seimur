@@ -1,0 +1,10 @@
+[Unit]
+Description=seimur_aiohttp daemon
+After=network.target
+
+[Service]
+WorkingDirectory=/opt/seimur/src
+ExecStart=/opt/seimur/env/bin/gunicorn "app:init_func()" -c config/gunicorn.py
+
+[Install]
+WantedBy=multi-user.target

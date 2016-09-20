@@ -28,7 +28,7 @@ function install_python()
     "  >> $VAGRANT_HOME_PATH/.bashrc
 
     su -l vagrant -c "$VIRTUALENV_PATH/bin/python -m pip install --upgrade pip"
-    su -l vagrant -c "$VIRTUALENV_PATH/bin/python -m pip install -r /vagrant/requirements.txt"
+    su -l vagrant -c "$VIRTUALENV_PATH/bin/python -m pip install -r /vagrant/requirements/dev.txt"
 }
 
 

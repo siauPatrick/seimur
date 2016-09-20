@@ -95,3 +95,8 @@ python
 apt-get install python3-venv
 python3 -m venv envs/seimur
 ```
+
+Run aiohttp dev
+```
+python -m aiohttp.web -H 0.0.0.0 -P 8000 app:init_func
+```
